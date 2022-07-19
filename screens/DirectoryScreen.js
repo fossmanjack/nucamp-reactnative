@@ -1,10 +1,12 @@
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 
 export default function DirectoryScreen(props) {
 	const renderDirectoryItem = ( { item: campsite } ) => {
 		return (
-			<ListItem>
+			<ListItem
+				onPress={_ => props.onPress(campsite.id)}
+			>
 				<Avatar
 					source={campsite.image}
 					rounded
@@ -19,7 +21,7 @@ export default function DirectoryScreen(props) {
 				</ListItem.Content>
 			</ListItem>
 		);
-	}
+	};
 
 	return (
 		<FlatList
