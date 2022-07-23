@@ -1,10 +1,12 @@
-import DirectoryScreen from './DirectoryScreen';
 import { View, Platform } from 'react-native';
-import Constants from 'expo-constants';
 import { createStackNavigator } from '@react-navigation/stack';
-import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
+import AboutScreen from './AboutScreen';
+import ContactScreen from './ContactScreen';
+import DirectoryScreen from './DirectoryScreen';
+import CampsiteInfoScreen from './CampsiteInfoScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +30,39 @@ const HomeNavigator = _ => {
 				options={
 					{ title: 'Home' }
 				}
+			/>
+		</Stack.Navigator>
+	);
+}
+
+const AboutNavigator = _ => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator
+			screenOptions={screenOptions}
+		>
+			<Stack.Screen
+				name='About'
+				component={AboutScreen}
+			/>
+		</Stack.Navigator>
+	);
+}
+
+const ContactNavigator = _ => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator
+			screenOptions={screenOptions}
+		>
+			<Stack.Screen
+				name='Contact Us'
+				component={ContactScreen}
+				options={{
+					title: 'Contact Us'
+				}}
 			/>
 		</Stack.Navigator>
 	);
@@ -70,22 +105,33 @@ const Main = _ => {
 		}}>
 			<Drawer.Navigator
 				initialRouteName='Home'
-				drawerStyle={
-					{ backgroundColor: '#CEC8FF' }
-				}
+				drawerStyle={{
+					backgroundColor: '#CEC8FF'
+				}}
 			>
 				<Drawer.Screen
 					name='Home'
 					component={HomeNavigator}
-					options={
-						{ title: 'Home' }
-					}
+					options={{
+						title: 'Home'
+					}}
 				/>
 				<Drawer.Screen
 					name='Directory'
 					component={DirectoryNavigator}
 					options={{
 						title: 'Directory'
+					}}
+				/>
+				<Drawer.Screen
+					name='About'
+					component={AboutNavigator}
+				/>
+				<Drawer.Screen
+					name='Contact'
+					component={ContactNavigator}
+					options={{
+						title: 'Contact Us'
 					}}
 				/>
 			</Drawer.Navigator>
