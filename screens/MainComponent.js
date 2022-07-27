@@ -194,6 +194,7 @@ const Main = _ => {
 								name='home'
 								type='font-awesome'
 								size={24}
+								iconStyle={styles.drawerIcon}
 								color={color}
 							/>
 						)
@@ -209,6 +210,7 @@ const Main = _ => {
 								name='list'
 								type='font-awesome'
 								size={24}
+								iconStyle={styles.drawerIcon}
 								color={color}
 							/>
 						)
@@ -223,6 +225,7 @@ const Main = _ => {
 								name='info-circle'
 								type='font-awesome'
 								size={24}
+								iconStyle={styles.drawerIcon}
 								color={color}
 							/>
 						)
@@ -238,6 +241,7 @@ const Main = _ => {
 								name='address-card'
 								type='font-awesome'
 								size={24}
+								iconStyle={styles.drawerIcon}
 								color={color}
 							/>
 						)
@@ -271,6 +275,9 @@ const styles = StyleSheet.create({
 		margin: 10,
 		height: 60,
 		width: 60
+	},
+	drawerIcon: {
+		width: 28
 	}
 });
 
