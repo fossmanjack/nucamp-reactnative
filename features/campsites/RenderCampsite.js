@@ -1,10 +1,16 @@
-import { Text, View } from 'react-native';
-import { Card } from 'react-native-elements';
+import {
+	Text,
+	View,
+	StyleSheet
+} from 'react-native';
+import { Card, Icon } from 'react-native-elements';
 
-export default function RenderCampsite( { campsite } ) {
+export default function RenderCampsite(props) {
+	const { campsite } = props;
+
 	if(campsite) {
 		return (
-			<Card containerStyle={{ padding: 0 }}>
+			<Card style={styles.cardContainer}>
 				<Card.Image source={campsite.image}>
 					<View
 						style={{
@@ -26,6 +32,14 @@ export default function RenderCampsite( { campsite } ) {
 				<Text style={{ margin: 20 }}>
 					{campsite.description}
 				</Text>
+				<Icon
+					name={props.isFavorite ? 'heart' : 'heart-o'}
+					type='font-awesome'
+					color='#f50'
+					raised
+					reverse
+					onPress={_ => props.toggleFavorite() }
+				/>
 			</Card>
 		);
 	}
@@ -33,3 +47,10 @@ export default function RenderCampsite( { campsite } ) {
 	return <View />;
 }
 
+const styles = StyleSheet.create({
+	cardContainer: {
+		padding: 0,
+		margin: 0,
+		marginBottom: 20
+	}
+});
