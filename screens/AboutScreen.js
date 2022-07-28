@@ -9,30 +9,33 @@ import {
 } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseURL } from '../shared/baseURL';
+import Loading from '../components/LoadingComponent';
 
 export default function AboutScreen() {
-	const { partnersArray: partners } = useSelector(S => S.partners);
+	const partners = useSelector(S => S.partners);
 
 	return (
 		<ScrollView>
 			<Mission />
-			<Partner partners={partners} />
+			<Card>
+				<Card.Title>Community Partners</Card.Title>
+				<Card.Divider />
+				<Partner partners={partners} />
+			</Card>
 		</ScrollView>
 	);
 }
 
 const Mission = _ => {
 	return (
-		<Card style={{
-			margin: 10
-		}}
-		>
+		<Card>
 			<Card.Title>
 				Our Mission
 			</Card.Title>
 			<Card.Divider />
 			<Text style={{
-				textAlign: 'justify'
+				textAlign: 'justify',
+				margin: 10
 			}}>
 				We present a curated database of the best campsites in the vast woods and backcountry of the World Wide Web Wilderness. We increase access to adventure for the public while promoting safe and respectful use of resources. The expert wilderness trekkers on our staff personally verify each campsite to make sure that they are up to our standards. We also present a platform for campers to share reviews on campsites they have visited with each other.
 			</Text>
@@ -41,28 +44,42 @@ const Mission = _ => {
 }
 
 const Partner = ({ partners }) => {
-	return (
-		<Card>
-			<Card.Title>
-				Community Partners
-			</Card.Title>
-			<Card.Divider />
-			{partners.map(p =>
-				<ListItem key={p.id}>
-					<Avatar
-						rounded
-						source={{ uri: baseURL + p.image }}
-					/>
-					<ListItem.Content>
-						<ListItem.Title>
-							{p.name}
-						</ListItem.Title>
-						<ListItem.Subtitle>
-							{p.description}
-						</ListItem.Subtitle>
-					</ListItem.Content>
-				</ListItem>
-			)}
-		</Card>
+	return partners.isLoading ? <Loading />
+		: partners.errMess ? <Text>{partners.errMess}</Text>
+		: partners.partnersArray.map(pt => (
+			<ListItem key={pt.id}>
+				<Avatar
+					rounded
+					source={{ uri: baseURL + pt.image }}
+				/>
+				<ListItem.Content>
+					<ListItem.Title>
+						{pt.name}
+					</ListItem.Title>
+					<ListItem.Subtitle>
+						{pt.description}
+					</ListItem.Subtitle>
+				</ListItem.Content>
+			</ListItem>
+		));
+}
+/*
+		{partners.partners.map(p =>
+			<ListItem key={p.id}>
+				<Avatar
+					rounded
+					source={{ uri: baseURL + p.image }}
+				/>
+				<ListItem.Content>
+					<ListItem.Title>
+						{p.name}
+					</ListItem.Title>
+					<ListItem.Subtitle>
+						{p.description}
+					</ListItem.Subtitle>
+				</ListItem.Content>
+			</ListItem>
+		)}
 	);
 }
+*/
