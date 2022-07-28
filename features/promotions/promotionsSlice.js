@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { baseUrl } from '../../shared/baseUrl';
+import { baseURL } from '../../shared/baseURL';
 
 export const fetchPromotions = createAsyncThunk(
     'promotions/fetchPromotions',
     async () => {
-        const response = await fetch(baseUrl + 'promotions');
+        const response = await fetch(baseURL + 'promotions');
         return response.json();
     }
 );

@@ -6,12 +6,12 @@ import {
 	Text,
 	View
 } from 'react-native';
-import { COMMENTS } from '../shared/comments';
+import { useSelector } from 'react-redux';
 
 
 export default function CampsiteInfoScreen( { route } ) {
 	const { campsite } = route.params;
-	const [ comments, setComments ] = useState(COMMENTS);
+	const { commentsArray: comments } = useSelector(S => S.comments);
 	const [ favorite, setFavorite ] = useState(false);
 
 	const renderCommentItem = ({ item }) => {

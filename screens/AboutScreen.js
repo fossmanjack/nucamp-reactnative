@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
 	Text,
 	ScrollView,
@@ -8,10 +7,11 @@ import {
 	Avatar,
 	ListItem
 } from 'react-native-elements';
-import { PARTNERS } from '../shared/partners';
+import { useSelector } from 'react-redux';
+import { baseURL } from '../shared/baseURL';
 
 export default function AboutScreen() {
-	const [ partners, setPartners ] = useState(PARTNERS);
+	const { partnersArray: partners } = useSelector(S => S.partners);
 
 	return (
 		<ScrollView>
@@ -51,7 +51,7 @@ const Partner = ({ partners }) => {
 				<ListItem key={p.id}>
 					<Avatar
 						rounded
-						source={p.image}
+						source={{ uri: baseURL + p.image }}
 					/>
 					<ListItem.Content>
 						<ListItem.Title>

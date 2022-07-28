@@ -13,12 +13,18 @@ import {
 	DrawerItemList
 } from '@react-navigation/drawer';
 import logo from '../assets/images/logo.png';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
 import DirectoryScreen from './DirectoryScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
+import { fetchComments } from '../features/comments/commentsSlice';
+import { fetchPartners } from '../features/partners/partnersSlice';
+import { fetchCampsites } from '../features/campsites/campsitesSlice';
+import { fetchPromotions } from '../features/promotions/promotionsSlice';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +34,7 @@ const screenOptions = {
 		backgroundColor: '#5637DD'
 	}
 }
+
 
 const HomeNavigator = _ => {
 	const Stack = createStackNavigator();
@@ -171,6 +178,14 @@ const CustomDrawerContent = props => {
 const Main = _ => {
 	//const [ campsites, setCampsites ] = useState(CAMPSITES);
 	//const [ selectedCampsiteId, setSelectedCampsiteId ] = useState();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchCampsites());
+		dispatch(fetchPromotions());
+		dispatch(fetchPartners());
+		dispatch(fetchComments());
+	}, [ dispatch ]);
 
 	return (
 		<View style={{

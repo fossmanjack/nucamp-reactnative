@@ -4,6 +4,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
+import { baseURL } from '../../shared/baseURL';
 
 export default function RenderCampsite(props) {
 	const { campsite } = props;
@@ -11,7 +12,7 @@ export default function RenderCampsite(props) {
 	if(campsite) {
 		return (
 			<Card style={styles.cardContainer}>
-				<Card.Image source={campsite.image}>
+				<Card.Image source={{ uri: baseURL + campsite.image }}>
 					<View
 						style={{
 							justifyContent: 'center',
