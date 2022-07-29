@@ -1,14 +1,19 @@
-import { FlatList, Text } from 'react-native';
+import {
+	FlatList,
+	Text,
+	View
+} from 'react-native';
 import { Avatar,
 	ListItem,
 	Tile
 } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseURL } from '../shared/baseURL';
+import Loading from '../components/LoadingComponent';
 
 //const DirectoryScreen = ( { navigation } ) => {
 export default function DirectoryScreen( { navigation } ) {
-	const { campsitesArray: campsites } = useSelector(S => S.campsites);
+	const campsites = useSelector(S => S.campsites);
 
 	const renderDirectoryItem = ( { item: campsite } ) => {
 		return (
@@ -22,13 +27,38 @@ export default function DirectoryScreen( { navigation } ) {
 		);
 	};
 
-	return (
-		<FlatList
-			data={campsites}
-			renderItem={renderDirectoryItem}
-			keyExtractor={(item) => item.id.toString()}
-		/>
+	return campsites.isLoading ? ( <Loading /> )
+		: campsites.errMess ? (
+			<View>
+				<Text>{campsites.errMess}</Text>
+			</View>
+		) : (
+			<FlatList
+				data={campsites.campsitesArray}
+				renderItem={renderDirectoryItem}
+				keyExtractor={(item) => item.id.toString()}
+			/>
 	);
+/*
+	return (
+		<>
+			{
+				campsites.isLoading ? <Loading />
+				: campsites.errMess ? (
+					<View>
+						<Text>{campsites.errMess}</Text>
+					</View>
+				) : (
+					<FlatList
+						data={campsites.campsitesArray}
+						renderItem={renderDirectoryItem}
+						keyExtractor={(item) => item.id.toString()}
+					/>
+				);
+			}
+		</>
+	);
+*/
 };
 
 //export default DirectoryScreen;
