@@ -82,6 +82,7 @@ export default function ReservationScreen() {
 					mode='date'
 					display='default'
 					onChange={onDateChange}
+					minimumDate={Date.now()}
 				/>
 			}
 			<View style={styles.formRow}>
