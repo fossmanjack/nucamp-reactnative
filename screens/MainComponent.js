@@ -20,6 +20,7 @@ import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
 import DirectoryScreen from './DirectoryScreen';
+import ReservationScreen from './ReservationScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { fetchComments } from '../features/comments/commentsSlice';
 import { fetchPartners } from '../features/partners/partnersSlice';
@@ -116,6 +117,32 @@ const ContactNavigator = _ => {
 	);
 }
 
+const ReservationNavigator = _ => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator
+			screenOptions={screenOptions}
+		>
+			<Stack.Screen
+				name='Reservation'
+				component={ReservationScreen}
+				options={({ navigation }) => (
+					{
+						title: 'Reservation Search',
+						headerLeft: _ =>
+							<Icon
+								name='tree'
+								type='font-awesome'
+								iconStyle={styles.stackIcon}
+								onPress={_ => navigation.toggleDrawer()}
+							/>
+					}
+				)}
+			/>
+		</Stack.Navigator>
+	);
+}
 const DirectoryNavigator = _ => {
 	const Stack = createStackNavigator();
 
@@ -223,6 +250,22 @@ const Main = _ => {
 						drawerIcon: ({ color }) => (
 							<Icon
 								name='list'
+								type='font-awesome'
+								size={24}
+								iconStyle={styles.drawerIcon}
+								color={color}
+							/>
+						)
+					}}
+				/>
+				<Drawer.Screen
+					name='ReserveCampsite'
+					component={ReservationNavigator}
+					options={{
+						title: 'Reserve Campsite',
+						drawerIcon: ({ color }) => (
+							<Icon
+								name='tree'
 								type='font-awesome'
 								size={24}
 								iconStyle={styles.drawerIcon}
