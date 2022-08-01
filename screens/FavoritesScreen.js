@@ -4,7 +4,8 @@ import {
 	FlatList,
 	Text,
 	TouchableOpacity,
-	StyleSheet
+	StyleSheet,
+	Alert
 } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
@@ -23,7 +24,22 @@ export default function FavoritesScreen({ navigation }) {
 				<View style={styles.deleteView}>
 					<TouchableOpacity
 						style={styles.deleteTouchable}
-						onPress={_ => dispatch(toggleFavorite(campsite.id))}
+						onPress={_ => Alert.alert(
+							'Delete favorite?',
+							`Are you sure you wish to delete the favorite campsite ${campsite.name}?`,
+							[
+								{
+									text: 'Cancel',
+									onPress: _ => console.log(`${campsite.name}: not deleted`),
+									style: 'cancel'
+								},
+								{
+									text: 'OK',
+									onPress: _ => dispatch(toggleFavorite(campsite.id))
+								}
+							],
+							{ cancelable: false }
+						)}
 					>
 						<Text style={styles.deleteText}>
 							Delete
