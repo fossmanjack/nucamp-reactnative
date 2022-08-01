@@ -10,10 +10,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "4.0.0",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-picker/picker": "2.2.1",
     "@react-navigation/drawer": "^6.4.3",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/stack": "^6.2.2",
+    "@reduxjs/toolkit": "1.7.2",
     "eas-cli": "^0.55.1",
     "expo": "^44.0.6",
     "expo-constants": "~13.0.1",
@@ -26,12 +29,10 @@
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-swipe-list-view": "^3.2.9",
     "react-native-web": "0.17.7",
-    "redux": "4.1.2",
     "react-redux": "7.2.6",
-    "@reduxjs/toolkit": "1.7.2",
-    "@react-native-community/datetimepicker": "4.0.0",
-    "@react-native-picker/picker": "2.2.1"
+    "redux": "4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
