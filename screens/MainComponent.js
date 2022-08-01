@@ -20,6 +20,7 @@ import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
 import ContactScreen from './ContactScreen';
 import DirectoryScreen from './DirectoryScreen';
+import FavoritesScreen from './FavoritesScreen';
 import ReservationScreen from './ReservationScreen';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import { fetchComments } from '../features/comments/commentsSlice';
@@ -143,6 +144,34 @@ const ReservationNavigator = _ => {
 		</Stack.Navigator>
 	);
 }
+
+const FavoritesNavigator = _ => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator
+			screenOptions={screenOptions}
+		>
+			<Stack.Screen
+				name='Favorites'
+				component={FavoritesScreen}
+				options={({ navigation }) => (
+					{
+						title: 'Favorite Campsites',
+						headerLeft: _ =>
+							<Icon
+								name='heart'
+								type='font-awesome'
+								iconStyle={styles.stackIcon}
+								onPress={_ => navigation.toggleDrawer()}
+							/>
+					}
+				)}
+			/>
+		</Stack.Navigator>
+	);
+}
+
 const DirectoryNavigator = _ => {
 	const Stack = createStackNavigator();
 
@@ -266,6 +295,22 @@ const Main = _ => {
 						drawerIcon: ({ color }) => (
 							<Icon
 								name='tree'
+								type='font-awesome'
+								size={24}
+								iconStyle={styles.drawerIcon}
+								color={color}
+							/>
+						)
+					}}
+				/>
+				<Drawer.Screen
+					name='Favorites'
+					component={FavoritesNavigator}
+					options={{
+						title: 'My Favorites',
+						drawerIcon: ({ color }) => (
+							<Icon
+								name='heart'
 								type='font-awesome'
 								size={24}
 								iconStyle={styles.drawerIcon}
