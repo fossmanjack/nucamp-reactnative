@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import { Rating, Input } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import * as Animatable from 'react-native-animatable';
 import { toggleFavorite } from '../features/favorites/favoritesSlice';
 import { postComment } from '../features/comments/commentsSlice';
-import { useState } from 'react';
 
 
 export default function CampsiteInfoScreen( { route } ) {
@@ -64,7 +65,11 @@ export default function CampsiteInfoScreen( { route } ) {
 	};
 
 	return (
-		<>
+		<Animatable.View
+			animation='fadeInUp'
+			duration={2000}
+			delay={1000}
+		>
 			<FlatList
 				data={comments.filter((c) => c.campsiteId == campsite.id)}
 				renderItem={renderCommentItem}
@@ -133,7 +138,7 @@ export default function CampsiteInfoScreen( { route } ) {
 					</View>
 				</View>
 			</Modal>
-		</>
+		</Animatable.View>
 	);
 }
 

@@ -8,6 +8,7 @@ import {
 	ListItem
 } from 'react-native-elements';
 import { useSelector } from 'react-redux';
+import * as Animatable from 'react-native-animatable';
 import { baseURL } from '../shared/baseURL';
 import Loading from '../components/LoadingComponent';
 
@@ -16,12 +17,18 @@ export default function AboutScreen() {
 
 	return (
 		<ScrollView>
-			<Mission />
-			<Card>
-				<Card.Title>Community Partners</Card.Title>
-				<Card.Divider />
-				<Partner partners={partners} />
-			</Card>
+			<Animatable.View
+				animation='fadeInDown'
+				duration={2000}
+				delay={1000}
+			>
+				<Mission />
+				<Card>
+					<Card.Title>Community Partners</Card.Title>
+					<Card.Divider />
+					<Partner partners={partners} />
+				</Card>
+			</Animatable.View>
 		</ScrollView>
 	);
 }

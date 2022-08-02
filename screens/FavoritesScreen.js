@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
+import * as Animatable from 'react-native-animatable';
 import { Loading } from '../components/LoadingComponent';
 import { baseURL } from '../shared/baseURL';
 import { toggleFavorite } from '../features/favorites/favoritesSlice';
@@ -76,11 +77,16 @@ export default function FavoritesScreen({ navigation }) {
 			<Text>{errMess}</Text>
 		</View>
 	) : (
-		<FlatList
-			data={campsitesArray.filter(c => favorites.includes(c.id))}
-			renderItem={renderFavoriteItem}
-			keyExtractor={item => item.id.toString()}
-		/>
+		<Animatable.View
+			animation='fadeInRightBig'
+			duration={2000}
+		>
+			<FlatList
+				data={campsitesArray.filter(c => favorites.includes(c.id))}
+				renderItem={renderFavoriteItem}
+				keyExtractor={item => item.id.toString()}
+			/>
+		</Animatable.View>
 	);
 };
 
