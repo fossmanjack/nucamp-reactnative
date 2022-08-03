@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {
 	Alert,
 	PanResponder,
@@ -11,6 +12,7 @@ import { baseURL } from '../../shared/baseURL';
 
 export default function RenderCampsite(props) {
 	const { campsite } = props;
+	const view = useRef();
 	const isLeftSwipe = ({ dx }) => dx < -200;
 	const panResponder = PanResponder.create(
 		{
@@ -36,7 +38,9 @@ export default function RenderCampsite(props) {
 						],
 						{ cancelable: false }
 					);
-			}
+			},
+			onPanResponderGrant: _ => view.current.rubberBand(1000)
+					.then(endState => console.log(endState.finished ? 'finished' : 'canceled'))
 		}
 	);
 
@@ -46,6 +50,7 @@ export default function RenderCampsite(props) {
 			duration={2000}
 			delay={1000}
 			{...panResponder.panHandlers}
+			ref={view}
 		>
 			<Card containerStyle={styles.cardContainer}>
 				<Card.Image source={{ uri: baseURL + campsite.image }}>
