@@ -14,6 +14,7 @@ export default function RenderCampsite(props) {
 	const { campsite } = props;
 	const view = useRef();
 	const isLeftSwipe = ({ dx }) => dx < -200;
+	const isRightSwipe = ({ dx }) => dx > 200;
 	const panResponder = PanResponder.create(
 		{
 			onStartShouldSetPanResponder: _ => true,
@@ -37,7 +38,8 @@ export default function RenderCampsite(props) {
 							}
 						],
 						{ cancelable: false }
-					);
+					) || isRightSwipe(gestureState) && props.onShowModal();
+
 			},
 			onPanResponderGrant: _ => view.current.rubberBand(1000)
 					.then(endState => console.log(endState.finished ? 'finished' : 'canceled'))
