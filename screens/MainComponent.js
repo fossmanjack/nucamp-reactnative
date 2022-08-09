@@ -18,6 +18,7 @@ import { useEffect } from 'react';
 import Constants from 'expo-constants';
 import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
+import LoginScreen from './LoginScreen';
 import ContactScreen from './ContactScreen';
 import DirectoryScreen from './DirectoryScreen';
 import FavoritesScreen from './FavoritesScreen';
@@ -172,6 +173,32 @@ const FavoritesNavigator = _ => {
 	);
 }
 
+const LoginNavigator = _ => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator
+			screenOptions={screenOptions}
+		>
+			<Stack.Screen
+				name='Login'
+				component={LoginScreen}
+				options={({ navigation }) => (
+					{
+						headerLeft: _ =>
+							<Icon
+								name='sign-in'
+								type='font-awesome'
+								iconStyle={styles.stackIcon}
+								onPress={_ => navigation.toggleDrawer()}
+							/>
+					}
+				)}
+			/>
+		</Stack.Navigator>
+	);
+}
+
 const DirectoryNavigator = _ => {
 	const Stack = createStackNavigator();
 
@@ -255,6 +282,22 @@ const Main = _ => {
 				}}
 				drawerContent={CustomDrawerContent}
 			>
+				<Drawer.Screen
+					name='Login'
+					component={LoginNavigator}
+					options={{
+						title: 'Login',
+						drawerIcon: ({ color }) => (
+							<Icon
+								name='sign-in'
+								type='font-awesome'
+								size={24}
+								iconStyle={styles.drawerIcon}
+								color={color}
+							/>
+						)
+					}}
+				/>
 				<Drawer.Screen
 					name='Home'
 					component={HomeNavigator}
