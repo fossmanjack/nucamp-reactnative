@@ -4,6 +4,7 @@ import {
 	PanResponder,
 	Text,
 	View,
+	Share,
 	StyleSheet
 } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
@@ -45,6 +46,18 @@ export default function RenderCampsite(props) {
 					.then(endState => console.log(endState.finished ? 'finished' : 'canceled'))
 		}
 	);
+	const shareCampsite = (title, message, url) => {
+		Share.share(
+			{
+				title,
+				message: `${title}: ${message} ${url}`,
+				url
+			},
+			{
+				dialogTitle: `Share ${title}`
+			}
+		);
+	}
 
 	return campsite ? (
 		<Animatable.View
@@ -86,6 +99,18 @@ export default function RenderCampsite(props) {
 						raised
 						reverse
 						onPress={_ => props.onShowModal()}
+					/>
+					<Icon
+						name='share'
+						type='font-awesome'
+						color='#5637dd'
+						raised
+						reverse
+						onPress={_ => shareCampsite(
+							campsite.name,
+							campsite.description,
+							baseURL + campsite.image
+						)}
 					/>
 				</View>
 			</Card>
