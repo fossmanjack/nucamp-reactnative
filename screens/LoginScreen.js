@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+	Image,
 	View,
 	ScrollView,
 	StyleSheet
@@ -11,6 +12,9 @@ import {
 	Input
 } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
+import * as ImagePicker from 'expo-image-picker';
+import { baseURL } from '../shared/baseURL';
+import logo from '../assets/images/logo.png';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 function LoginTab({ navigation }) {
@@ -119,6 +123,7 @@ function RegisterTab() {
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [remember, setRemember] = useState(false);
+	const [ imageURL, setImageURL ] = useState(baseURL + 'images/logo.png');
 
 	const handleRegister = _ => {
 		console.log(JSON.stringify({
@@ -140,9 +145,35 @@ function RegisterTab() {
 				.catch((error) => console.log('Could not delete user info', error));
 	}
 
+	const getImageFromCamera = async _ => {
+		const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+
+		if(cameraPermission.status === 'granted') {
+			const capturedImage = await ImagePicker.launchCameraAsync({
+				allowsEditing: true,
+				aspect: [1, 1]
+			});
+			if(!capturedImage.cancelled) {
+				console.log(capturedImage);
+				setImageURL(capturedImage.uri);
+			}
+		}
+	}
+
 	return (
 		<ScrollView>
 			<View style={styles.container}>
+				<View style={styles.imageContainer}>
+					<Image
+						source={{ uri: imageURL }}
+						loadingIndicatorSource={logo}
+						style={styles.image}
+					/>
+					<Button
+						title='Camera'
+						onPress={getImageFromCamera}
+					/>
+				</View>
 				<Input
 					placeholder='Username'
 					leftIcon={{
@@ -289,6 +320,17 @@ const styles = StyleSheet.create({
 		margin: 20,
 		marginRight: 40,
 		marginLeft: 40
+	},
+	imageContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-evenly',
+		margin: 10
+	},
+	image: {
+		width: 60,
+		height: 60
 	}
 });
 
