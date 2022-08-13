@@ -13,6 +13,7 @@ import {
 } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 import * as ImagePicker from 'expo-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator';
 import { baseURL } from '../shared/baseURL';
 import logo from '../assets/images/logo.png';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -148,16 +149,25 @@ function RegisterTab() {
 	const getImageFromCamera = async _ => {
 		const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
 
+
 		if(cameraPermission.status === 'granted') {
 			const capturedImage = await ImagePicker.launchCameraAsync({
 				allowsEditing: true,
 				aspect: [1, 1]
 			});
 			if(!capturedImage.cancelled) {
-				console.log(capturedImage);
-				setImageURL(capturedImage.uri);
+				console.log('Captured image:', capturedImage);
+				processImage(capturedImage.uri);
 			}
 		}
+	}
+
+	const processImage = async imgURI => {
+		console.log('Called processImage with imgURI:', imgURI);
+		const processedImage = await ImageManipulator.manipulateAsync(imgURI,
+			[ { resize: { width: 400 }} ], { compress: 0.5, format: ImageManipulator.SaveFormat.PNG });
+		console.log('Processed image:', processedImage);
+		setImageURL(processedImage.uri);
 	}
 
 	return (
