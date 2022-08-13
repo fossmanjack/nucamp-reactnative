@@ -14,6 +14,7 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+import * as MediaLibrary from 'expo-media-library';
 import { baseURL } from '../shared/baseURL';
 import logo from '../assets/images/logo.png';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -185,6 +186,8 @@ function RegisterTab() {
 			[ { resize: { width: 400 }} ], { compress: 0.5, format: ImageManipulator.SaveFormat.PNG });
 		console.log('Processed image:', processedImage);
 		setImageURL(processedImage.uri);
+		const savedImage = await MediaLibrary.saveToLibraryAsync(processedImage.uri);
+		console.log('savedImage:', savedImage);
 	}
 
 	return (
