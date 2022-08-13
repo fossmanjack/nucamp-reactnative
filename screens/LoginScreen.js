@@ -162,6 +162,23 @@ function RegisterTab() {
 		}
 	}
 
+	const getImageFromGallery = async _ => {
+		const mediaLibraryPermissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		console.log('Media library permissions', mediaLibraryPermissions);
+
+		if(mediaLibraryPermissions.status === 'granted') {
+			console.log('Media permissions granted, launching image library...');
+			const capturedImage = await ImagePicker.launchImageLibraryAsync({
+				allowsEditing: true,
+				aspect: [1, 1]
+			});
+			if(!capturedImage.cancelled) {
+				console.log('Captured image:', capturedImage);
+				processImage(capturedImage.uri);
+			}
+		}
+	}
+
 	const processImage = async imgURI => {
 		console.log('Called processImage with imgURI:', imgURI);
 		const processedImage = await ImageManipulator.manipulateAsync(imgURI,
@@ -182,6 +199,10 @@ function RegisterTab() {
 					<Button
 						title='Camera'
 						onPress={getImageFromCamera}
+					/>
+					<Button
+						title='Gallery'
+						onPress={getImageFromGallery}
 					/>
 				</View>
 				<Input
